@@ -1,0 +1,94 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #93C2D9;
+	color: #333;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 16px;
+	margin: 0;
+	padding: 20px;
+}
+
+h2 {
+	margin: 0 0 10px;
+	padding: 0;
+}
+
+#main {
+	text-align: center;
+}
+
+.tiny {
+	font-size: 0.7em;
+}
+
+.pull-right {
+	float: right;
+}
+
+.form {
+	padding: 5px 0px;
+}
+
+.form > .form-item {
+	margin: 0;
+	padding: 5px 10px;
+}
+
+.form > .form-item::after {
+	clear: both;
+	content: " ";
+	display: table;
+}
+
+.form > .form-item > label,
+.form > .form-item > .label {
+	cursor: pointer;
+	display: inline-block;
+	padding-right: 10px;
+	text-align: right;
+	width: 100px;
+}
+
+.form > .form-item > input {
+	border: 1px solid #ccc;
+	font-size: 1em;
+	outline: none;
+	padding: 5px 8px;
+	width: 226px;
+}
+
+.form > .form-item > input:focus {
+	border: 1px solid #777;
+}
+
+.form > .form-item > button[type=submit],
+.form > .form-item > input[type=checkbox] {
+	margin: 0;
+	width: auto;
+}
+
+.form-modal {
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.2);
+	display: inline-block;
+	left: calc(50% - 175px);
+	margin: 0 auto;
+	padding: 10px;
+	position: absolute;
+	text-align: left;
+	top: calc(50% - 200px);
+	width: 370px;
+}
+
+.form-modal h2 {
+	background: #eee;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-weight: normal;
+	margin: -10px -10px 10px;
+	padding: 10px;
+}
