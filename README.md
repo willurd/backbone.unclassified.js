@@ -12,7 +12,7 @@ Once you've included `backbone.unclassified.js` on your page, you can use Backbo
 
 ```javascript
 var YourView = Backbone.View.extend({
-    el: "ui#your-element-id",
+    el: "#your-element-id",
 
     ui: {
         title: "header > h2",
