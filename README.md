@@ -15,7 +15,7 @@ var YourView = Backbone.View.extend({
     el: "ui#your-element-id",
 
     ui: {
-        title: "header > ",
+        title: "header > h2",
         people: "li.person",
         odd: "li:nth-child(odd)",
         even: "li:nth-child(even)",
