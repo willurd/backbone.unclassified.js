@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Backbone Unclassified</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+	<div id="main">
+		<form id="login-form" action="#" class="form form-modal">
+			<h2>Log in</h2>
+			<div class="form-item">
+				<label for="username">Username</label>
+				<input type="text" name="username">
+			</div>
+			<div class="form-item">
+				<label for="password">Password</label>
+				<input type="password" name="password">
+			</div>
+			<div class="form-item">
+				<label for="remember" class="tiny">Remember me?</label>
+				<input type="checkbox" data-bind="remember">
+			</div>
+			<div class="form-item">
+				<button type="submit" class="pull-right">Log in</button>
+			</div>
+		</form>
+	</div>
+
+	<script src="../lib/prefixfree.js"></script>
+	<script src="../lib/jquery.js"></script>
+	<script src="../lib/underscore.js"></script>
+	<script src="../lib/backbone.js"></script>
+	<script src="/backbone.unclassified.js"></script>
+	<script src="example.js"></script>
+</body>
+</html>

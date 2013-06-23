@@ -13,25 +13,17 @@
 		obj[fn] = creator(old) || old;
 	}
 
-	// This is just a little housekeeping.
-	patch(Backbone.View, "extend", function(old) {
-		return function(protoProps) {
-			protoProps._ui = protoProps.ui;
-			delete protoProps.ui;
-			return old.apply(this, arguments);
-		};
-	});
-
 	// This does the work of using your `ui` object to grab all of the child
 	// elements out of the DOM, using whatever DOM library Backbone is using.
 	patch(Backbone.View.prototype, "setElement", function(old) {
 		return function() {
 			var ret = old.apply(this, arguments);
+			var uiSpec = this.__proto__.ui;
 
-			if (this._ui) {
+			if (uiSpec) {
 				this.ui = {};
 
-				_.each(this._ui, function(value, key) {
+				_.each(uiSpec, function(value, key) {
 					this.ui[key] = this.$el.find(value);
 				}, this);
 			}
