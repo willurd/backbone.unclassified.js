@@ -16,6 +16,10 @@ class FormView extends Backbone.View
     password: "input[type=password]"
     remember: "[data-bind=remember]"
     submit: "button[type=submit]"
+    button:
+      forgot:
+        username: "[data-action=forgot-username]"
+        password: "[data-action=forgot-password]"
 
   # Now that you've specified child elements in the `ui` object, you
   # can reference them by name in place of selectors in the events
@@ -24,6 +28,8 @@ class FormView extends Backbone.View
   # names), but that would just be weird...
   events:
     "submit": "submit"
+    "click button.forgot.username": "forgotUsername"
+    "click button.forgot.password": "forgotPassword"
     "click labels": "labelClick"
     "change remember": "rememberChange"
 
@@ -36,6 +42,14 @@ class FormView extends Backbone.View
 
   submit: (e) =>
     e.preventDefault();
+
+  forgotUsername: ->
+    alert "An email with your username has been sent."
+    false
+
+  forgotPassword: ->
+    alert "An email with your password in plain text has been sent. Trust us, we're professionals."
+    false
 
   labelClick: (e) =>
     label = $(e.target)

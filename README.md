@@ -14,27 +14,46 @@ Once you've included `backbone.unclassified.js` on your page, you can use Backbo
 var YourView = Backbone.View.extend({
     el: "#your-element-id",
 
+    // The selectors here will be used to create references to your child
+    // elements when your view is instantiated and when your view's main
+    // element changes. Notice, also, that this set of child elements can
+    // be hierarchical. You can access this.ui.button.add in code, and
+    // button.add in your `events` specification.
     ui: {
         title: "header > h2",
+        list: "ul, ol",
         people: "li.person",
         odd: "li:nth-child(odd)",
         even: "li:nth-child(even)",
         admins: "li.person[data-role=admin]",
-        addButton: ".btn.add",
-        deleteButton: ".btn.delete"
+        button: {
+            add: ".btn.add",
+            remove: ".btn.delete",
+            secret: "button[data-contains-secrets]"
+        }
     },
 
     // You can use your child element names in place of selectors here.
     events: {
-        "click odd": "oddClick",
-        "click even": "evenClick"
+        "click button.add": "add",
+        "click button.remove": "remove",
+        "click people": "select",
+        "mouseenter list": "over",
+        "mouseleave list": "out"
     },
 
     initialize: function() {
         // You can use your child elements programmatically as early as in
         // your initialize method.
         this.ui.title.text("People (" + this.ui.people.length + ")");
-    }
+        this.button.secret.hide();
+    },
+
+    add: function () { ... },
+    remove: function () { ... },
+    select: function () { ... },
+    over: function () { ... },
+    out: function () { ... },
 });
 ```
 

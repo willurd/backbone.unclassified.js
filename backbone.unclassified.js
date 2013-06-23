@@ -13,21 +13,35 @@
 		obj[fn] = creator(old) || old;
 	}
 
+	/**
+	 * Converts a hierarchical collection of name -> selector into a
+	 * collection of name -> element.
+	 */
+	function processUiSpec(el, uiMap, spec, path) {
+		if (!spec) {
+			return undefined;
+		} else if (typeof spec === "string") {
+			var child = el.find(spec);
+			uiMap[path] = child;
+			return child;
+		}
+
+		var ui = {};
+
+		for (var key in spec) {
+			ui[key] = processUiSpec(el, uiMap, spec[key], path ? (path + "." + key) : key);
+		}
+
+		return ui;
+	}
+
 	// This does the work of using your `ui` object to grab all of the child
 	// elements out of the DOM, using whatever DOM library Backbone is using.
 	patch(Backbone.View.prototype, "setElement", function(old) {
 		return function() {
 			var ret = old.apply(this, arguments);
-			var uiSpec = this.constructor.prototype.ui;
-
-			if (uiSpec) {
-				this.ui = {};
-
-				_.each(uiSpec, function(value, key) {
-					this.ui[key] = this.$el.find(value);
-				}, this);
-			}
-
+			this._uiMap = {};
+			this.ui = processUiSpec(this.$el, this._uiMap, this.constructor.prototype.ui);
 			return ret;
 		};
 	});
@@ -53,10 +67,10 @@
 
 				if (selector === '') {
 					this.$el.on(eventName, method);
-				} else if (this.ui && selector in this.ui) {
+				} else if (this.ui && selector in this._uiMap) {
 					// This is the only part that has changed. It checks to see if
 					// your selector
-					this.ui[selector].on(eventName, method);
+					this._uiMap[selector].on(eventName, method);
 				} else {
 					this.$el.on(eventName, selector, method);
 				}

@@ -15,7 +15,13 @@ var FormView = Backbone.View.extend({
 		username: "input[name=username]",
 		password: "input[type=password]",
 		remember: "[data-bind=remember]",
-		submit: "button[type=submit]"
+		submit: "button[type=submit]",
+		button: {
+			forgot: {
+				username: "[data-action=forgot-username]",
+				password: "[data-action=forgot-password]"
+			}
+		}
 	},
 
 	// Now that you've specified child elements in the `ui` object, you
@@ -25,6 +31,8 @@ var FormView = Backbone.View.extend({
 	// names), but that would just be weird...
 	events: {
 		"submit": "submit",
+		"click button.forgot.username": "forgotUsername",
+		"click button.forgot.password": "forgotPassword",
 		"click labels": "labelClick",
 		"change remember": "rememberChange"
 	},
@@ -39,6 +47,16 @@ var FormView = Backbone.View.extend({
 
 	submit: function(e) {
 		e.preventDefault();
+	},
+
+	forgotUsername: function() {
+		alert("An email with your username has been sent.");
+		return false;
+	},
+
+	forgotPassword: function() {
+		alert("An email with your password in plain text has been sent. Trust us, we're professionals.");
+		return false;
 	},
 
 	labelClick: function(e) {

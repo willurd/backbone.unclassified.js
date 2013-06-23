@@ -16,6 +16,11 @@ h2 {
 	padding: 0;
 }
 
+hr {
+	border: none;
+	border-top: 1px solid #bbb;
+}
+
 #main {
 	text-align: center;
 }
@@ -91,4 +96,23 @@ h2 {
 	font-weight: normal;
 	margin: -10px -10px 10px;
 	padding: 10px;
+}
+
+.form footer {
+	border-top: 1px solid #ccc;
+	padding: 7px 0 0;
+}
+
+.forgot {
+	font-size: 11px;
+	line-height: 1em;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.forgot li {
+	display: inline;
+	margin: 0 10px 0 0;
+	padding: 0;
 }

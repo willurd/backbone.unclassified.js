@@ -24,11 +24,19 @@
       username: "input[name=username]",
       password: "input[type=password]",
       remember: "[data-bind=remember]",
-      submit: "button[type=submit]"
+      submit: "button[type=submit]",
+      button: {
+        forgot: {
+          username: "[data-action=forgot-username]",
+          password: "[data-action=forgot-password]"
+        }
+      }
     };
 
     FormView.prototype.events = {
       "submit": "submit",
+      "click button.forgot.username": "forgotUsername",
+      "click button.forgot.password": "forgotPassword",
       "click labels": "labelClick",
       "change remember": "rememberChange"
     };
@@ -41,6 +49,16 @@
 
     FormView.prototype.submit = function(e) {
       return e.preventDefault();
+    };
+
+    FormView.prototype.forgotUsername = function() {
+      alert("An email with your username has been sent.");
+      return false;
+    };
+
+    FormView.prototype.forgotPassword = function() {
+      alert("An email with your password in plain text has been sent. Trust us, we're professionals.");
+      return false;
     };
 
     FormView.prototype.labelClick = function(e) {
