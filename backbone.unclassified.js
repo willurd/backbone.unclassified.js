@@ -18,7 +18,7 @@
 	patch(Backbone.View.prototype, "setElement", function(old) {
 		return function() {
 			var ret = old.apply(this, arguments);
-			var uiSpec = this.__proto__.ui;
+			var uiSpec = this.constructor.prototype.ui;
 
 			if (uiSpec) {
 				this.ui = {};
