@@ -4,79 +4,72 @@
 
 (function() {
 	if (typeof Backbone === "undefined") {
-		console.error("backbone.unclassified must be included after backbone");
-		return;
+		return console.error("backbone.unclassified must be included after backbone");
 	}
 
 	function patch(obj, fn, creator) {
-		var old = obj[fn];
-		obj[fn] = creator(old) || old;
+		obj[fn] = creator(obj[fn]) || obj[fn];
 	}
 
 	/**
-	 * Converts a hierarchical collection of name -> selector into a
-	 * collection of name -> element.
+	 * Iterates over `obj` and returns a new object with whatever you put in
+	 * it. You can either return values from `fn`, in which case the new object
+	 * will have the same keys, or you can use the third argument to `fn`, `map`
+	 * (which is the return object), and put your new values in whatever keys
+	 * you want.
 	 */
-	function processUiSpec(el, uiMap, spec, path) {
-		if (!spec) {
-			return undefined;
-		} else if (typeof spec === "string") {
-			var child = el.find(spec);
-			uiMap[path] = child;
-			return child;
+	function mapObject(obj, fn, context) {
+		var map = {};
+
+		for (var key in obj) {
+			var value = fn.call(context || this, key, obj[key], map);
+			if (typeof value !== "undefined") map[key] = value;
 		}
 
-		var ui = {};
-
-		for (var key in spec) {
-			ui[key] = processUiSpec(el, uiMap, spec[key], path ? (path + "." + key) : key);
-		}
-
-		return ui;
+		return map;
 	}
 
-	// This does the work of using your `ui` object to grab all of the child
-	// elements out of the DOM, using whatever DOM library Backbone is using.
+	/**
+	 * Converts a hierarchical collection of name -> selector into a collection
+	 * of name -> element.
+	 */
+	function processUiSpec(el, map, spec, path) {
+		if (!spec) return undefined;
+		if (typeof spec === "string") return el.find(map[path] = spec);
+
+		return mapObject(spec, function(key, value) {
+			var dotpath = path ? (path + "." + key) : key;
+			return processUiSpec(el, map, spec[key], dotpath);
+		});
+	}
+
+	// Wraps `Backbone.View.prototype.setElement` to convert your ui spec into
+	// a collection of named elements.
 	patch(Backbone.View.prototype, "setElement", function(old) {
 		return function() {
 			var ret = old.apply(this, arguments);
-			this._uiMap = {};
-			this.ui = processUiSpec(this.$el, this._uiMap, this.constructor.prototype.ui);
+			this._uiSelectorMap = {};
+			this.ui = processUiSpec(this.$el, this._uiSelectorMap, this.constructor.prototype.ui);
 			return ret;
 		};
 	});
 
-	// This does a little work to allow you to use your child element names
-	// in your view's `events` object.
+	// Wraps `Backbone.View.prototype.delegateEvents` to allow you to use your
+	// ui names in place of selectors in `events` objects.
 	patch(Backbone.View.prototype, "delegateEvents", function(old) {
-  		var delegateEventSplitter = /^(\S+)\s*(.*)$/;
+		var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
 		return function(events) {
 			if (!(events || (events = _.result(this, 'events')))) return this;
 
-			this.undelegateEvents();
-
-			_.each(events, function(method, key) {
-				if (!_.isFunction(method)) method = this[events[key]];
-				if (!method) return;
-
+			return old.call(this, mapObject(events, function(key, method, map) {
 				var match = key.match(delegateEventSplitter);
-				var eventName = match[1], selector = match[2];
-				method = _.bind(method, this);
-				eventName += '.delegateEvents' + this.cid;
+				var eventName = match[1];
+				var selector = match[2];
+				var newSelector = (selector ? (" " + (this._uiSelectorMap[selector] || selector)) : "");
 
-				if (selector === '') {
-					this.$el.on(eventName, method);
-				} else if (this.ui && selector in this._uiMap) {
-					// This is the only part that has changed. It checks to see if
-					// your selector
-					this._uiMap[selector].on(eventName, method);
-				} else {
-					this.$el.on(eventName, selector, method);
-				}
-			}, this);
-
-			return this;
+				map[eventName + newSelector] = method;
+			}, this));
 		};
 	});
 }());
