@@ -37,6 +37,7 @@ var YourView = Backbone.View.extend({
     events: {
         "click button.add": "add",
         "click button.remove": "remove",
+        "click button.secret": "abort",
         "click people": "select",
         "mouseenter list": "over",
         "mouseleave list": "out"
