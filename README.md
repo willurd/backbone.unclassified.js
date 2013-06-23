@@ -53,6 +53,7 @@ var YourView = Backbone.View.extend({
     add: function () { ... },
     remove: function () { ... },
     select: function () { ... },
+    abort: function() { ... },
     over: function () { ... },
     out: function () { ... }
 });
