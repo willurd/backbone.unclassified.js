@@ -46,7 +46,7 @@ var YourView = Backbone.View.extend({
         // You can use your child elements programmatically as early as in
         // your initialize method.
         this.ui.title.text("People (" + this.ui.people.length + ")");
-        this.button.secret.hide();
+        this.ui.button.secret.hide();
     },
 
     add: function () { ... },
