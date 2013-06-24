@@ -1,0 +1,13 @@
+{
+	"name": "backbone.unclassified",
+	"version": "0.1.0",
+	"main": "backbone.unclassified.js",
+	"dependencies": {
+		"underscore": ">=1.4.3",
+		"backbone": ">=1.0.0"
+	},
+	"ignore": [
+		"examples",
+		"package.json"
+	]
+}

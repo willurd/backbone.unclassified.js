@@ -7,6 +7,9 @@
 		return console.error("backbone.unclassified must be included after backbone");
 	}
 
+	/**
+	 * Allows you to wrap or replace ("monkey-patch") methods on existing objects.
+	 */
 	function patch(obj, fn, creator) {
 		obj[fn] = creator(obj[fn]) || obj[fn];
 	}
@@ -43,8 +46,10 @@
 		});
 	}
 
-	// Wraps `Backbone.View.prototype.setElement` to convert your ui spec into
-	// a collection of named elements.
+	/**
+	 * Wraps `Backbone.View.prototype.setElement` to convert your ui spec into
+	 * a collection of named elements.
+	 */
 	patch(Backbone.View.prototype, "setElement", function(old) {
 		return function() {
 			var ret = old.apply(this, arguments);
@@ -54,8 +59,10 @@
 		};
 	});
 
-	// Wraps `Backbone.View.prototype.delegateEvents` to allow you to use your
-	// ui names in place of selectors in `events` objects.
+	/**
+	 * Wraps `Backbone.View.prototype.delegateEvents` to allow you to use your
+	 * ui names in place of selectors in `events` objects.
+	 */
 	patch(Backbone.View.prototype, "delegateEvents", function(old) {
 		var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 

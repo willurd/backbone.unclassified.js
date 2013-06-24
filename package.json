@@ -1,0 +1,23 @@
+{
+	"name": "backbone.unclassified",
+	"description": "Declarative child elements for Backbone Views",
+	"version": "0.1.0",
+	"keywords": ["backbone", "plugin", "view", "dom", "element", "selector"],
+	"author": "William Bowers <william.bowers@gmail.com>",
+	"main": "backbone.unclassified.js",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/willurd/backbone.unclassified.js"
+	},
+	"dependencies": {
+		"underscore": ">=1.4.3",
+		"backbone": ">=1.0.0"
+	},
+	"jam": {
+		"dependencies": {
+			"underscore": ">=1.4.3",
+			"backbone": ">=1.0.0"
+		},
+	}
+}
