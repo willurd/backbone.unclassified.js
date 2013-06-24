@@ -8,6 +8,12 @@
 	}
 
 	/**
+	 * A value no one else can use. Used to check whether we're dealing with
+	 * values that belong to Backbone Unclassified.
+	 */
+	var internal = {};
+
+	/**
 	 * Allows you to wrap or replace ("monkey-patch") methods on existing objects.
 	 */
 	function patch(obj, fn, creator) {
@@ -33,12 +39,30 @@
 	}
 
 	/**
+	 * Performs the query on the given selector. Adds a utility function for
+	 * refreshing the query in place.
+	 */
+	function get(el, spec) {
+		var result = el.find(spec);
+
+		result.refresh = function() {
+			this.splice(0, this.length);
+			this.push.apply(this, el.find(spec));
+			return this;
+		};
+
+		result.refresh.unclassified = internal;
+
+		return result;
+	}
+
+	/**
 	 * Converts a hierarchical collection of name -> selector into a collection
 	 * of name -> element.
 	 */
 	function processUiSpec(el, map, spec, path) {
 		if (!spec) return undefined;
-		if (typeof spec === "string") return el.find(map[path] = spec);
+		if (typeof spec === "string") return get(el, map[path] = spec);
 
 		return mapObject(spec, function(key, value) {
 			var dotpath = path ? (path + "." + key) : key;
@@ -79,4 +103,24 @@
 			}, this));
 		};
 	});
+
+	/**
+	 * Refreshes the given UI hierarchy in one go. If no argument is given, `this.ui`
+	 * is used, which will refresh all child elements in the view.
+	 */
+	Backbone.View.prototype.refreshUi = function(ui) {
+		ui = ui || this.ui;
+
+		for (var key in ui) {
+			if (ui.hasOwnProperty(key)) {
+				var value = ui[key];
+
+				if (typeof value.refresh === "function" && value.refresh.unclassified === internal) {
+					value.refresh();
+				} else {
+					this.refreshUi(value);
+				}
+			}
+		}
+	};
 }());

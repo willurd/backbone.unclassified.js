@@ -90,6 +90,47 @@ var YourView = Backbone.View.extend({
 
 Refer to `example/example.js` for a complete working example.
 
+## Caveats
+
+**Dynamically created elements**
+
+Elements that are created after your view is initialzed won't be included in the query results (your `this.ui.whatever` objects), because jQuery objects don't update automatically. Because of this, Backbone Unclassified provides a simple way of refreshing queries.
+
+To refresh all queries (usually at the end of your `render` method):
+
+```javascript
+var YourView = Backbone.View.extend({
+    // ...
+
+    render: function() {
+        // ...
+        this.refreshUi();
+    }
+
+    // ...
+});
+```
+
+To refresh a sub-object of queries:
+
+```javascript
+this.refreshUi(this.ui.button); // An object containing multiple queries.
+```
+
+To refresh a single query:
+
+```javascript
+this.ui.admins.refresh();
+```
+
+Refreshes happen in-place, meaning they modify the query object itself (as opposed to returning a new object). `refresh()` also returns the object, so you can chain methods as normal:
+
+```javascript
+this.ui.title.refresh().text("Hello, Backbone Unclassified");
+```
+
+Refer to `ListView.render` in `examples/collection/example.js` for an example of how this is used in practice.
+
 ## License
 
 MIT licensed. See `LICENSE.txt` for the full text.

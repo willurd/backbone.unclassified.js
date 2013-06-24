@@ -1,6 +1,6 @@
 {
 	"name": "backbone.unclassified",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"main": "backbone.unclassified.js",
 	"dependencies": {
 		"underscore": ">=1.4.3",

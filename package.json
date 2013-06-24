@@ -1,7 +1,7 @@
 {
 	"name": "backbone.unclassified",
 	"description": "Declarative child elements for Backbone Views",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"keywords": ["backbone", "plugin", "view", "dom", "element", "selector"],
 	"author": "William Bowers <william.bowers@gmail.com>",
 	"main": "backbone.unclassified.js",

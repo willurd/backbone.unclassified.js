@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Collection &mdash; Backbone Unclassified</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="main"></div>
+
+	<script id="list-template" type="text/template">
+	<h3><%= name %></h3>
+	<ul></ul>
+	</script>
+
+	<script id="item-template" type="text/template">
+	<span class="control less" title="less">-</span>
+	<span class="name"><%= name %></span>
+	<span class="control more" title="more">+</span>
+	<span class="quantity">
+		<span class="label">Quantity:</span>
+		<span class="value"><%= quantity %></span>
+	</span>
+	</script>
+
+	<script src="../lib/prefixfree.js"></script>
+	<script src="../lib/jquery.js"></script>
+	<script src="../lib/underscore.js"></script>
+	<script src="../lib/backbone.js"></script>
+	<script src="/backbone.unclassified.js"></script>
+	<script src="example.js"></script>
+</body>
+</html>
