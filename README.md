@@ -6,6 +6,35 @@ Declarative child elements for Backbone Views.
 
 Backbone doesn't come with a way of managing a View's child elements. If you want to use all of Backbone's great features, like its event declaration syntax, you either have to write selectors multiple times or save the selectors elsewhere for later use. Or your can forgo using Backbone's niceties altogether and do everything the hard way (manually). But where's the fun in that?
 
+## Installation
+
+All you need for Backbone Unclassified is `backbone.unclassified.js`. You can install it manually or use one of the following package managers.
+
+**Bower**
+
+```shell
+$ bower install backbone.unclassified
+```
+
+**JamJS**
+
+```shell
+$ jam install backbone.unclassified
+```
+
+## Include
+
+Backbone Unclassified only depends on Backbone and Underscore, which you'll already have installed if you're using backbone.
+
+```html
+<!-- Backbone stuff -->
+<script src="/path/to/underscore.js"></script>
+<script src="/path/to/backbone.js"></script>
+
+<!-- Backbone Unclassified -->
+<script src="/path/to/backbone.unclassified.js"></script>
+```
+
 ## How do I use it?
 
 Once you've included `backbone.unclassified.js` on your page, you can use Backbone Unclassified by specifying a collection of child elements inside a view:
