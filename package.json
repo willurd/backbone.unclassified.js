@@ -15,9 +15,15 @@
 		"backbone": ">=1.0.0"
 	},
 	"jam": {
+		"main": "backbone.unclassified.js",
 		"dependencies": {
 			"underscore": ">=1.4.3",
 			"backbone": ">=1.0.0"
 		},
+		"include": [
+			"backbone.unclassified.js",
+			"LICENSE.txt",
+			"README.md"
+		]
 	}
 }

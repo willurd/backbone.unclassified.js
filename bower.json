@@ -8,6 +8,8 @@
 	},
 	"ignore": [
 		"examples",
+		".gitignore",
+		"bower.json",
 		"package.json"
 	]
 }
