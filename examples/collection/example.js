@@ -94,8 +94,7 @@ var ListView = Backbone.View.extend({
 		}, this);
 
 		// Because the .item elements didn't exist when the list was initialized,
-		// the collection needs to be refreshed. `this.ui.yourItem.refresh()` is
-		// a simple operation that simply performs the dom query again.
+		// the ui queries need to be refreshed.
 		this.refreshUi();
 
 		return this;
