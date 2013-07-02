@@ -7,6 +7,9 @@
 		return console.error("backbone.unclassified must be included after backbone");
 	}
 
+	// We'll need this later.
+	var slice = Array.prototype.slice;
+
 	/**
 	 * A value no one else can use. Used to check whether we're dealing with
 	 * values that belong to Backbone Unclassified.
@@ -18,6 +21,17 @@
 	 */
 	function patch(obj, fn, creator) {
 		obj[fn] = creator(obj[fn]) || obj[fn];
+	}
+
+	/**
+	 * Calls `obj[prop]` or returns it, depending on whether it's a function.
+	 */
+	function result(obj, prop) {
+		if (typeof obj[prop] === "function") {
+			return obj[prop]();
+		} else {
+			return obj[prop];
+		}
 	}
 
 	/**
@@ -46,8 +60,15 @@
 		var result = el.find(spec);
 
 		result.refresh = function() {
-			this.splice(0, this.length);
-			this.push.apply(this, el.find(spec));
+			// Clearing the current elements in the most cross-library way I can think of.
+			for (var i = 0, len = this.length; i < len; i++) {
+				delete this[i];
+			}
+			this.length = 0;
+
+			// Add the new elements.
+			this.push.apply(this, slice.call(el.find(spec)));
+
 			return this;
 		};
 
@@ -91,7 +112,7 @@
 		var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
 		return function(events) {
-			if (!(events || (events = _.result(this, 'events')))) return this;
+			if (!(events || (events = result(this, 'events')))) return this;
 
 			return old.call(this, mapObject(events, function(key, method, map) {
 				var match = key.match(delegateEventSplitter);

@@ -45,6 +45,10 @@ var FormView = Backbone.View.extend({
 		this.ui.remember.attr("checked", true);
 	},
 
+	render: function() {
+		this.ui.username.focus();
+	},
+
 	submit: function(e) {
 		e.preventDefault();
 	},
@@ -71,3 +75,4 @@ var FormView = Backbone.View.extend({
 });
 
 var view = new FormView();
+view.render();

@@ -40,8 +40,11 @@ class FormView extends Backbone.View
     @ui.password.val "secret!"
     @ui.remember.attr "checked", true
 
+  render: ->
+    @ui.username.focus()
+
   submit: (e) =>
-    e.preventDefault();
+    e.preventDefault()
 
   forgotUsername: ->
     alert "An email with your username has been sent."
@@ -60,3 +63,4 @@ class FormView extends Backbone.View
     console.log "remember field changed"
 
 view = new FormView()
+view.render()

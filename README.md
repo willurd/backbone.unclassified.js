@@ -24,11 +24,11 @@ $ jam install backbone.unclassified
 
 ## Include
 
-Backbone Unclassified only depends on Backbone and Underscore, which you'll already have installed if you're using backbone.
+Backbone Unclassified depends on Backbone and whatever selector library you're using for it, which you'll already have installed.
 
 ```html
 <!-- Backbone stuff -->
-<script src="/path/to/underscore.js"></script>
+<script src="/path/to/your-favorite-selector-library.js"></script>
 <script src="/path/to/backbone.js"></script>
 
 <!-- Backbone Unclassified -->

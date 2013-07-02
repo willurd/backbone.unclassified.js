@@ -48,6 +48,10 @@
       return this.ui.remember.attr("checked", true);
     };
 
+    FormView.prototype.render = function() {
+      return this.ui.username.focus();
+    };
+
     FormView.prototype.submit = function(e) {
       return e.preventDefault();
     };
@@ -78,5 +82,7 @@
   })(Backbone.View);
 
   view = new FormView();
+
+  view.render();
 
 }).call(this);
