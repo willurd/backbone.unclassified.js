@@ -53,7 +53,7 @@ class FormView extends Backbone.View
 
   labelClick: (e) =>
     label = $(e.target)
-    el = this.ui[label.attr("for")]
+    el = @ui[label.attr("for")]
     el.focus()
 
   rememberChange: (e) =>
