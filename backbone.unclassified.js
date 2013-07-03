@@ -70,7 +70,7 @@
 			try {
 				var children = [];
 
-				for (var i = context.length; i--;) {
+				for (var i = 0, len = context.length; i < len; i++) {
 					children.push.apply(children, Backbone.$(selector, context[i]));
 				}
 
