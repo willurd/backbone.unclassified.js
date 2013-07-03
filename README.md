@@ -13,10 +13,13 @@ Backbone Unclassified supports:
 * [jQuery](http://jquery.com/)
 * [Zepto](http://zeptojs.com/)
 * [Sizzle](http://sizzlejs.com/)
+* [Dojo](http://dojotoolkit.org/)
 * [Qwery](https://github.com/ded/qwery)
-* [ender](http://ender.jit.su/)
+* [Ender](http://ender.jit.su/)
 * [Bonzo](https://github.com/ded/bonzo)
 * [Traversty](https://github.com/rvagg/traversty)
+* [Zest](https://github.com/chjj/zest)
+* [Sel](https://github.com/amccollum/sel)
 
 ## Installation
 

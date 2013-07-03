@@ -49,6 +49,9 @@
 		} else if (typeof context.down === "function") {
 			// Traversty.
 			return context.down(selector);
+		} else if (typeof context.query === "function") {
+			// Dojo.
+			return context.query(selector);
 		} else if (Backbone.$.length >= 2) {
 			// This selector library takes at least two arguments, maybe they
 			// are a selector and context.
@@ -77,7 +80,7 @@
 					// Sizzle.
 					return children;
 				} else {
-					// ender.
+					// Ender.
 					return result;
 				}
 			} catch (e) {
