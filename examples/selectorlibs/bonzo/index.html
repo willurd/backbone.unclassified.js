@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Bonzo &mdash; Backbone Unclassified</title>
+</head>
+<body>
+	<h1>Avec Bonzo</h1>
+	<div id="container"></div>
+
+	<script src="../../lib/prefixfree.js"></script>
+	<script src="../qwery/qwery.js"></script>
+	<script src="bonzo.js"></script>
+	<script>
+	function $(selector, context) {
+		return bonzo(qwery(selector, context));
+	}
+	</script>
+	<script src="../../lib/underscore.js"></script>
+	<script src="../../lib/backbone.js"></script>
+	<script src="/backbone.unclassified.js"></script>
+	<script src="example.js"></script>
+</body>
+</html>

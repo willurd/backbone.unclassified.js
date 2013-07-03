@@ -44,13 +44,14 @@
 	 */
 	function findChildren(context, selector) {
 		if (typeof context.find === "function") {
-			// This selection object has a `find` method (jQuery, Zepto).
+			// jQuery, Zepto.
 			return context.find(selector);
-		}
-
-		if (Backbone.$.length >= 2) {
+		} else if (typeof context.down === "function") {
+			// Traversty.
+			return context.down(selector);
+		} else if (Backbone.$.length >= 2) {
 			// This selector library takes at least two arguments, maybe they
-			// are a selector and context (Qwery).
+			// are a selector and context.
 			try {
 				var result = Backbone.$(selector, context);
 
@@ -62,7 +63,7 @@
 				// Nope.
 			}
 
-			// Maybe it takes an html element instead (ender, Sizzle).
+			// Maybe it takes an html element instead.
 			try {
 				var children = [];
 
