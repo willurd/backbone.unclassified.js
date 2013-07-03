@@ -8,7 +8,11 @@
 	}
 
 	// We'll need this later.
+	var toString = Object.prototype.toString;
 	var slice = Array.prototype.slice;
+	var isArray = Array.isArray || function(obj) {
+		return toString.call(obj) === "[object Array]";
+	};
 
 	/**
 	 * A value no one else can use. Used to check whether we're dealing with
@@ -35,6 +39,56 @@
 	}
 
 	/**
+	 * This beast of a function is responsible for encapsulating the different
+	 * ways selector engines perform child selections.
+	 */
+	function findChildren(context, selector) {
+		if (typeof context.find === "function") {
+			// This selection object has a `find` method (jQuery, Zepto).
+			return context.find(selector);
+		}
+
+		if (Backbone.$.length >= 2) {
+			// This selector library takes at least two arguments, maybe they
+			// are a selector and context (Qwery).
+			try {
+				var result = Backbone.$(selector, context);
+
+				if (result.length > 0) {
+					// Qwery.
+					return result;
+				}
+			} catch (e) {
+				// Nope.
+			}
+
+			// Maybe it takes an html element instead (ender, Sizzle).
+			try {
+				var children = [];
+
+				for (var i = context.length; i--;) {
+					children.push.apply(children, Backbone.$(selector, context[i]));
+				}
+
+				var result = Backbone.$(children);
+
+				if (isArray(result) && result.length === 0) {
+					// Sizzle.
+					return children;
+				} else {
+					// ender.
+					return result;
+				}
+			} catch (e) {
+				// I guess not.
+			}
+		}
+
+		console.error("Unable to make a child selection with the installed selector engine");
+		return [];
+	}
+
+	/**
 	 * Iterates over `obj` and returns a new object with whatever you put in
 	 * it. You can either return values from `fn`, in which case the new object
 	 * will have the same keys, or you can use the third argument to `fn`, `map`
@@ -56,18 +110,28 @@
 	 * Performs the query on the given selector. Adds a utility function for
 	 * refreshing the query in place.
 	 */
-	function get(el, spec) {
-		var result = el.find(spec);
+	function get(el, selector) {
+		var result = findChildren(el, selector);
 
 		result.refresh = function() {
+			var i;
+
 			// Clearing the current elements in the most cross-library way I can think of.
-			for (var i = 0, len = this.length; i < len; i++) {
+			for (i = 0, len = this.length; i < len; i++) {
 				delete this[i];
 			}
 			this.length = 0;
 
 			// Add the new elements.
-			this.push.apply(this, slice.call(el.find(spec)));
+			var children = slice.call(findChildren(el, selector));
+			if (typeof this.push === "function") {
+				this.push.apply(this, children);
+			} else {
+				for (i = 0, len = children.length; i < len; i++) {
+					this[i] = children[i];
+				}
+				this.length = children.length;
+			}
 
 			return this;
 		};
