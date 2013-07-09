@@ -148,4 +148,4 @@ Refer to `ListView.render` in `examples/collection/example.js` for an example of
 
 ## License
 
-MIT licensed. See `LICENSE.txt` for the full text.
+MIT licensed. See `LICENSE.txt` for the full details.

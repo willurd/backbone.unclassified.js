@@ -1,6 +1,11 @@
-// This is the code that makes the `ui` attribute work. It patches
-// a few Backbone View functions so it can perform pattern matching
-// for events and grab your ui elements when the main element is changed.
+/**
+ * backbone.unclassified.js v0.1.3 - Declarative child elements for Backbone Views
+ * https://github.com/willurd/backbone.unclassified.js
+ *
+ * Copyright (c) 2013 William Bowers <william.bowers@gmail.com>
+ * Released under the MIT license
+ * https://github.com/willurd/backbone.unclassified.js/blob/master/LICENSE.txt
+ */
 
 (function() {
 	if (typeof Backbone === "undefined") {
