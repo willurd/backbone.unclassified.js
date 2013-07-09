@@ -48,6 +48,8 @@
 	 * ways selector engines perform child selections.
 	 */
 	function findChildren(context, selector) {
+		var result;
+
 		if (typeof context.find === "function") {
 			// jQuery, Zepto.
 			return context.find(selector);
@@ -61,7 +63,7 @@
 			// This selector library takes at least two arguments, maybe they
 			// are a selector and context.
 			try {
-				var result = Backbone.$(selector, context);
+				result = Backbone.$(selector, context);
 
 				if (result.length > 0) {
 					// Qwery.
@@ -79,7 +81,7 @@
 					children.push.apply(children, Backbone.$(selector, context[i]));
 				}
 
-				var result = Backbone.$(children);
+				result = Backbone.$(children);
 
 				if (isArray(result) && result.length === 0) {
 					// Sizzle.

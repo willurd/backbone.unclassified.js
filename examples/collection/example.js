@@ -87,10 +87,10 @@ var ListView = Backbone.View.extend({
 		this.ui.list.refresh();
 
 		_.each(this.collection.models, function(item) {
-			var item = new ItemView({
+			var view = new ItemView({
 				model: item
 			});
-			this.ui.list.append(item.render().el);
+			this.ui.list.append(view.render().el);
 		}, this);
 
 		// Because the .item elements didn't exist when the list was initialized,
@@ -108,18 +108,20 @@ var ListView = Backbone.View.extend({
 	}
 });
 
+function makeItem(value) {
+	return {
+		name: "item " + value,
+		quantity: Math.round(Math.random() * 5)
+	};
+}
+
 var MainView = Backbone.View.extend({
 	el: "#main",
 
 	render: function() {
 		for (var i = 0; i < 3; i++) {
 			var list = new ListView({
-				collection: new Items(_.map([1, 2, 3], function(value) {
-					return {
-						name: "item " + value,
-						quantity: Math.round(Math.random() * 5)
-					};
-				}), {
+				collection: new Items(_.map([1, 2, 3], makeItem), {
 					name: "list " + (i + 1)
 				})
 			});

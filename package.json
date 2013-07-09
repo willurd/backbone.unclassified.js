@@ -1,29 +1,44 @@
 {
-	"name": "backbone.unclassified",
-	"description": "Declarative child elements for Backbone Views",
-	"version": "0.1.3",
-	"keywords": ["backbone", "plugin", "view", "dom", "element", "selector"],
-	"author": "William Bowers <william.bowers@gmail.com>",
-	"main": "backbone.unclassified.js",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/willurd/backbone.unclassified.js"
-	},
-	"dependencies": {
-		"underscore": ">=1.4.3",
-		"backbone": ">=1.0.0"
-	},
-	"jam": {
-		"main": "backbone.unclassified.js",
-		"dependencies": {
-			"underscore": ">=1.4.3",
-			"backbone": ">=1.0.0"
-		},
-		"include": [
-			"backbone.unclassified.js",
-			"LICENSE.txt",
-			"README.md"
-		]
-	}
+  "name": "backbone.unclassified",
+  "description": "Declarative child elements for Backbone Views",
+  "version": "0.1.3",
+  "keywords": [
+    "backbone",
+    "plugin",
+    "view",
+    "dom",
+    "element",
+    "selector"
+  ],
+  "author": "William Bowers <william.bowers@gmail.com>",
+  "main": "backbone.unclassified.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willurd/backbone.unclassified.js"
+  },
+  "dependencies": {
+    "underscore": ">=1.4.3",
+    "backbone": ">=1.0.0"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "matchdep": "*",
+    "uglify-js": "*"
+  },
+  "jam": {
+    "main": "backbone.unclassified.js",
+    "dependencies": {
+      "underscore": ">=1.4.3",
+      "backbone": ">=1.0.0"
+    },
+    "include": [
+      "backbone.unclassified.js",
+      "LICENSE.txt",
+      "README.md"
+    ]
+  }
 }
